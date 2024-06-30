@@ -68,6 +68,12 @@
       <li><a href="#">Home</a></li>
       <li><a href="#">Services</a></li>
       <li><a href="#">About Us</a></li>
+      <li><a href="https://www.jumia.com.ng/food/" target="_blank">
+        <img src="./images/order-food.png" alt="Order Food Delivery" style="width:20px;height:20px;"/> Order Food Delivery
+      </a></li>
+      <li><a href="https://www.connectchefs.com" target="_blank">
+        <img src="./images/connect-chef.png" alt="Connect to a Chef" style="width:20px;height:20px;"/> Connect to a Chef
+      </a></li>
     </nav>
   </header>
   
@@ -83,14 +89,6 @@
           <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M8 0C3.582 0 0 3.316 0 7.407c0 2.332 1.163 4.41 2.98 5.77V16l2.725-1.495c.727.2 1.497.31 2.295.31 4.418 0 8-3.317 8-7.408C16 3.317 12.418 0 8 0zm.795 9.975L6.758 7.802 2.783 9.975l4.372-4.642 2.087 2.173 3.926-2.173-4.373 4.642z" fill-rule="nonzero"/></svg>
           Chat on Messenger
         </a>
-      </section>
-
-      <section class="services">
-        <h2>Our Services</h2>
-        <ul>
-          <li>Connect to a Chef Platform</li>
-          <li>Order Food Delivery</li>
-        </ul>
       </section>
 
       <section class="disclaimer">
@@ -151,7 +149,6 @@
         const messageContent = document.createElement('p');
         messageContent.textContent = message;
         messageElement.appendChild(messageContent);
-        
       }, 1000);
     }
     
@@ -159,41 +156,6 @@
     document.addEventListener('DOMContentLoaded', () => {
       generateResponse('Hello! How can I assist you today?');
     });
-
-    // Function to handle chatbot interactions
-    function handleChatbotMessage(query) {
-      // Dialogflow API integration
-      const accessToken = 'YOUR_DIALOGFLOW_ACCESS_TOKEN';
-      const baseUrl = 'https://api.dialogflow.com/v1/query?v=20150910';
-      
-      fetch(baseUrl, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          query: query,
-          lang: 'en',
-          sessionId: '12345'
-        })
-      })
-      .then(response => response.json())
-      .then(data => {
-        const responseMessage = data.result.fulfillment.speech;
-        generateResponse(responseMessage);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-    }
-
-    // Handling chatbot responses
-    document.querySelector('.chat-container').addEventListener('click', () => {
-      const userMessage = prompt('What would you like to ask?');
-      handleChatbotMessage(userMessage);
-    });
-
   </script>
 
   <div class="chat-container"></div>
