@@ -57,9 +57,6 @@
       }
     }
   </style>
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body class="app">
   <header class="site-header">
@@ -70,7 +67,7 @@
     <nav class="site-nav right">
       <li><a href="#">Home</a></li>
       <li><a href="#">Services</a></li>
-      <li><a href="#">About-Us</a></li>
+      <li><a href="#">About Us</a></li>
     </nav>
   </header>
   
@@ -79,27 +76,25 @@
       <h1>Meet Amarya. Your food AI cooking tutor.</h1>
       <p class="description">Amarya is a cross-platform digital assistant that helps you get started with cooking.</p>
 
-      <section class="login-section">
-        <h3>Login to get started</h3>
-        <div id="google-login-button"></div>
-        <div id="facebook-login-button"></div>
-      </section>
-
-      <section class="profile-section hidden">
-        <h3>Your Profile</h3>
-        <div id="profile-details"></div>
-      </section>
-
-      <section class="bot-platforms hidden">
-        <h3 class="prompt">Say Hi to the Chatbot</h3>
+      <section class="bot-platforms">
+        <h3 class="prompt"></h3>
+        
         <a href="https://m.me/amaryabot" class="bot-platform" target="_blank">
           <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M8 0C3.582 0 0 3.316 0 7.407c0 2.332 1.163 4.41 2.98 5.77V16l2.725-1.495c.727.2 1.497.31 2.295.31 4.418 0 8-3.317 8-7.408C16 3.317 12.418 0 8 0zm.795 9.975L6.758 7.802 2.783 9.975l4.372-4.642 2.087 2.173 3.926-2.173-4.373 4.642z" fill-rule="nonzero"/></svg>
           Chat on Messenger
         </a>
       </section>
 
+      <section class="services">
+        <h2>Our Services</h2>
+        <ul>
+          <li>Connect to a Chef Platform</li>
+          <li>Order Food Delivery</li>
+        </ul>
+      </section>
+
       <section class="disclaimer">
-        <p><b>*</b> Note that Amarya is a work in progress project. </p>
+        <p><b>*</b> Note that Amarya is a work in progress app. </p>
       </section>
     </section>
     
@@ -111,13 +106,6 @@
         frameborder="0"
       >
       </iframe>
-      <button id="toggle-video">Toggle Live Video</button>
-      <div id="live-video" class="hidden">
-        <video width="320" height="240" controls>
-          <source src="movie.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
     </section>
 
   </main>
@@ -127,110 +115,88 @@
   </section>
 
   <script src="./src/js/script.js" type="text/javascript" charset="utf-8"></script>
+
   <script type="text/javascript" charset="utf-8">
     function noscroll() {
       window.scrollTo( 0, 0 );
     }
+    // add listener to disable scroll
     if (window.innerWidth > 600) {
       window.addEventListener('scroll', noscroll);
     }
 
+    // Function to generate chatbot response
     function generateResponse(message) {
+      // Create a new message element
       const messageElement = document.createElement('div');
       messageElement.classList.add('chat-message');
+      
+      // Create a typing indicator
       const typingIndicator = document.createElement('div');
       typingIndicator.classList.add('typing-indicator');
       typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+      
+      // Append the typing indicator to the message element
       messageElement.appendChild(typingIndicator);
+      
+      // Append the message element to the chat container
       document.querySelector('.chat-container').appendChild(messageElement);
 
+      // Simulate a delay for the typing indicator
       setTimeout(() => {
+        // Remove the typing indicator
         typingIndicator.remove();
+        
+        // Add the actual message content
         const messageContent = document.createElement('p');
         messageContent.textContent = message;
         messageElement.appendChild(messageContent);
+        
       }, 1000);
     }
-
+    
+    // Example usage
     document.addEventListener('DOMContentLoaded', () => {
       generateResponse('Hello! How can I assist you today?');
-      initializeGoogleLogin();
-      initializeFacebookLogin();
-      document.getElementById('toggle-video').addEventListener('click', () => {
-        document.getElementById('live-video').classList.toggle('hidden');
-      });
     });
 
-    function initializeGoogleLogin() {
-      gapi.load('auth2', function() {
-        gapi.auth2.init({
-          client_id: 'YOUR_GOOGLE_CLIENT_ID'
-        }).then(function(auth2) {
-          auth2.attachClickHandler('google-login-button', {}, function(user) {
-            const profile = user.getBasicProfile();
-            displayProfile(profile);
-          }, function(error) {
-            console.log(JSON.stringify(error, undefined, 2));
-          });
-        });
+    // Function to handle chatbot interactions
+    function handleChatbotMessage(query) {
+      // Dialogflow API integration
+      const accessToken = 'YOUR_DIALOGFLOW_ACCESS_TOKEN';
+      const baseUrl = 'https://api.dialogflow.com/v1/query?v=20150910';
+      
+      fetch(baseUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          query: query,
+          lang: 'en',
+          sessionId: '12345'
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        const responseMessage = data.result.fulfillment.speech;
+        generateResponse(responseMessage);
+      })
+      .catch(error => {
+        console.error('Error:', error);
       });
     }
 
-    function initializeFacebookLogin() {
-      FB.init({
-        appId: 'YOUR_FACEBOOK_APP_ID',
-        cookie: true,
-        xfbml: true,
-        version: 'v10.0'
-      });
+    // Handling chatbot responses
+    document.querySelector('.chat-container').addEventListener('click', () => {
+      const userMessage = prompt('What would you like to ask?');
+      handleChatbotMessage(userMessage);
+    });
 
-      document.getElementById('facebook-login-button').addEventListener('click', function() {
-        FB.login(function(response) {
-          if (response.authResponse) {
-            FB.api('/me', { fields: 'name, email, picture' }, function(profile) {
-              displayProfile(profile);
-            });
-          }
-        }, { scope: 'public_profile,email' });
-      });
-    }
-
-    function displayProfile(profile) {
-      const profileSection = document.querySelector('.profile-section');
-      profileSection.classList.remove('hidden');
-      const profileDetails = document.getElementById('profile-details');
-      profileDetails.innerHTML = `
-        <p>Name: ${profile.getName ? profile.getName() : profile.name}</p>
-        <p>Email: ${profile.getEmail ? profile.getEmail() : profile.email}</p>
-        <img src="${profile.getImageUrl ? profile.getImageUrl() : profile.picture.data.url}" alt="Profile Picture">
-      `;
-      document.querySelector('.bot-platforms').classList.remove('hidden');
-    }
-
-    async function handleImageRecognition(file) {
-      const formData = new FormData();
-      formData.append('file', file);
-      try {
-        const response = await axios.post('YOUR_AI_IMAGE_RECOGNITION_API_URL', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        });
-        generateResponse(`AI Image Recognition Result: ${response.data}`);
-      } catch (error) {
-        console.error('Error with AI image recognition:', error);
-      }
-    }
-
-    async function getFoodInfo(query) {
-      try {
-        const response = await axios.get(`YOUR_FOOD_API_URL?q=${query}`);
-        generateResponse(`Food Info: ${response.data}`);
-      } catch (error) {
-        console.error('Error fetching food info:', error);
-      }
-    }
   </script>
+
   <div class="chat-container"></div>
+
 </body>
 </html>
