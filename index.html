@@ -9,86 +9,16 @@
   <link rel="icon" href="./images/amarya.png">
   <link rel="stylesheet" href="./dist/css/style.css">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #fafafa;
-    }
-    .app {
+    .snapchat-like-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
-    }
-    .site-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      padding: 10px 20px;
-      background-color: #fff;
-      border-bottom: 1px solid #ccc;
-    }
-    .logo img {
-      height: 40px;
-    }
-    .site-nav {
-      list-style: none;
-      display: flex;
-      gap: 15px;
-    }
-    .site-nav a {
-      text-decoration: none;
-      color: #333;
-      font-weight: bold;
-    }
-    .site-hero {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-      max-width: 600px;
-      width: 100%;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      margin: 20px 0;
-    }
-    .site-hero h1 {
-      margin: 20px 0;
-    }
-    .site-hero .description {
-      margin-bottom: 20px;
-    }
-    .bot-platforms {
-      margin-bottom: 20px;
-    }
-    .bot-platform {
-      display: inline-block;
-      margin: 5px;
-      padding: 10px 20px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      text-decoration: none;
-      color: #333;
-      background-color: #fff;
-    }
-    .realtime-app iframe {
-      width: 100%;
-      height: 400px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-    }
-    .chat-container {
-      max-width: 600px;
-      width: 100%;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      background-color: #fff;
-      margin-bottom: 20px;
     }
     .chat-message {
       display: flex;
@@ -98,8 +28,9 @@
     .chat-message p {
       margin: 0;
       padding: 10px;
-      border-radius: 5px;
-      background-color: #e0e0e0;
+      border-radius: 20px;
+      background-color: #ffe600;
+      color: #000;
     }
     .typing-indicator {
       display: flex;
@@ -145,24 +76,40 @@
   </header>
   
   <main class="site-hero text-center">
-    <h1>Meet Amarya. Your food AI cooking tutor.</h1>
-    <p class="description">Amarya is a cross-platform digital assistant that helps you get started with cooking.</p>
-    <section class="bot-platforms">
-      <h3 class="prompt">Say Hi to the Chatbot</h3>
-      <a href="https://m.me/amaryabot" class="bot-platform" target="_blank">
-        Chat on Messenger
-      </a>
+    <section class="info-section left">
+      <h1>Meet Amarya. Your food AI cooking tutor.</h1>
+      <p class="description">Amarya is a cross-platform digital assistant that helps you get started with cooking.</p>
+
+      <section class="bot-platforms">
+        <h3 class="prompt">Say Hi to the Chatbot</h3>
+        
+        <a href="https://m.me/amaryabot" class="bot-platform" target="_blank">
+          <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M8 0C3.582 0 0 3.316 0 7.407c0 2.332 1.163 4.41 2.98 5.77V16l2.725-1.495c.727.2 1.497.31 2.295.31 4.418 0 8-3.317 8-7.408C16 3.317 12.418 0 8 0zm.795 9.975L6.758 7.802 2.783 9.975l4.372-4.642 2.087 2.173 3.926-2.173-4.373 4.642z" fill-rule="nonzero"/></svg>
+          Chat on Messenger
+        </a>
+        
+      </section>
+
+      <section class="disclaimer">
+        <p><b>*</b> Note that Amarya is a work in progress project. </p>
+      </section>
     </section>
-    <section class="realtime-app">
+    
+    <section class="realtime-app right">
       <iframe
         src="https://console.api.ai/api-client/demo/embedded/amarya"
+        width="100%"
+        height="89%"
         frameborder="0"
       >
       </iframe>
     </section>
+
   </main>
 
-  <div class="chat-container"></div>
+  <section class="modal hidden">
+    <h3>Oops. If you're not me and you're seeing this. I'm very sorry :(</h3>
+  </section>
 
   <script src="./src/js/script.js" type="text/javascript" charset="utf-8"></script>
 
@@ -190,7 +137,7 @@
       messageElement.appendChild(typingIndicator);
       
       // Append the message element to the chat container
-      document.querySelector('.chat-container').appendChild(messageElement);
+      document.querySelector('.snapchat-like-container').appendChild(messageElement);
 
       // Simulate a delay for the typing indicator
       setTimeout(() => {
@@ -201,7 +148,6 @@
         const messageContent = document.createElement('p');
         messageContent.textContent = message;
         messageElement.appendChild(messageContent);
-        
       }, 1000);
     }
     
@@ -210,6 +156,8 @@
       generateResponse('Hello! How can I assist you today?');
     });
   </script>
+
+  <div class="snapchat-like-container"></div>
 
 </body>
 </html>
