@@ -8,6 +8,55 @@
   <link rel="shortcut-icon" href="./images/amarya.png">
   <link rel="icon" href="./images/amarya.png">
   <link rel="stylesheet" href="./dist/css/style.css">
+  <style>
+    .chat-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #f9f9f9;
+    }
+    .chat-message {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .chat-message p {
+      margin: 0;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #e0e0e0;
+    }
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      margin-right: 10px;
+    }
+    .typing-indicator span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      margin: 0 2px;
+      border-radius: 50%;
+      background-color: #999;
+      animation: blink 1s infinite;
+    }
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    @keyframes blink {
+      0%, 100% {
+        opacity: 0.2;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
 <body class="app">
   <header class="site-header">
@@ -17,104 +66,23 @@
     
     <nav class="site-nav right">
       <li><a href="#">Home</a></li>
-      <li><a href="#">Bot-view</a></li>
-      <li><a href="#">Blog</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">About-Us</a></li>
     </nav>
   </header>
   
   <main class="site-hero text-center">
     <section class="info-section left">
-      <h1>Meet Amarya. Your AI cooking tutor.</h1>
+      <h1>Meet Amarya. Your food AI cooking tutor.</h1>
       <p class="description">Amarya is a cross-platform digital assistant that helps you get started with cooking.</p>
 
       <section class="bot-platforms">
-        <h3 class="prompt"></h3>
+        <h3 class="prompt">Say Hi to the Chatbot</h3>
         
         <a href="https://m.me/amaryabot" class="bot-platform" target="_blank">
           <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M8 0C3.582 0 0 3.316 0 7.407c0 2.332 1.163 4.41 2.98 5.77V16l2.725-1.495c.727.2 1.497.31 2.295.31 4.418 0 8-3.317 8-7.408C16 3.317 12.418 0 8 0zm.795 9.975L6.758 7.802 2.783 9.975l4.372-4.642 2.087 2.173 3.926-2.173-4.373 4.642z" fill-rule="nonzero"/></svg>
-           Messenger
+          Chat on Messenger
         </a>
         
-        <a href="#"https://....../AmaryaBot" class="bot-platform" target="_blank"#>
-          <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M16 3.038c-.59.26-1.22.437-1.885.517.677-.407 1.198-1.05 1.443-1.816-.634.37-1.337.64-2.085.79-.598-.64-1.45-1.04-2.396-1.04-1.812 0-3.282 1.47-3.282 3.28 0 .26.03.51.085.75-2.728-.13-5.147-1.44-6.766-3.42C.83 2.58.67 3.14.67 3.75c0 1.14.58 2.143 1.46 2.732-.538-.017-1.045-.165-1.487-.41v.04c0 1.59 1.13 2.918 2.633 3.22-.276.074-.566.114-.865.114-.21 0-.41-.02-.61-.058.42 1.304 1.63 2.253 3.07 2.28-1.12.88-2.54 1.404-4.07 1.404-.26 0-.52-.015-.78-.045 1.46.93 3.18 1.474 5.04 1.474 6.04 0 9.34-5 9.34-9.33 0-.14 0-.28-.01-.42.64-.46 1.2-1.04 1.64-1.7z" fill-rule="nonzero"/></svg>
-           Whatsapp
-        </a>
-         
-        <a href="https://telegram.com/AmaryaBot" class="bot-platform" target="_blank">
-          <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M12.793 10.69c.57-1.56 2.66-7.49 2.994-9.044.38-1.76-.414-1.93-2.22-1.34-1.805.59-6.435 2.305-7.215 2.582-.78.277-4.573 1.552-5.36 1.932-1.606.862-.825 2.177.97 2.86 5.37 2.577 3.845 1.264 6.242 6.032.493 1.218 1.656 3.293 2.77 1.724.586-.892 1.37-3.52 1.82-4.747z" fill-rule="nonzero"/></svg>
-          Telegram
-        </a>
-          
-      </section>
-
-      <section class="disclaimer">
-        <p><b>*</b> Note that Amarya is a work in progress app. </p>
-      </section>
-    </section>
-    
-    <section class="realtime-app right">
-      <iframe
-        src="https://console.api.ai/api-client/demo/embedded/amarya"
-        width="100%"
-        height="89%"
-        frameborder="0"
-      >
-      </iframe>
-    </section>
-
-  </main>
-
-  <section class="modal hidden">
-    <h3>Oops. If you're not me and you're seeing this. I'm very sorry :(</h3>
-  </section>
-
-  <script src="./src/js/script.js" type="text/javascript" charset="utf-8"></script>
-
-  <script type="text/javascript" charset="utf-8">
-    function noscroll() {
-      window.scrollTo( 0, 0 );
-    }
-    // add listener to disable scroll
-    if (window.innerWidth > 600) {
-      window.addEventListener('scroll', noscroll);
-    }
-
-    // Function to generate chatbot response
-    function generateResponse(message) {
-      // Create a new message element
-      const messageElement = document.createElement('div');
-      messageElement.classList.add('chat-message');
-      
-      // Create a typing indicator
-      const typingIndicator = document.createElement('div');
-      typingIndicator.classList.add('typing-indicator');
-      typingIndicator.innerHTML = '<span></span><span></span><span></span>';
-      
-      // Append the typing indicator to the message element
-      messageElement.appendChild(typingIndicator);
-      
-      // Append the message element to the chat container
-      document.querySelector('.chat-container').appendChild(messageElement);
-
-      // Simulate a delay for the typing indicator
-      setTimeout(() => {
-        // Remove the typing indicator
-        typingIndicator.remove();
-        
-        // Add the actual message content
-        const messageContent = document.createElement('p');
-        messageContent.textContent = message;
-        
-        // Append the message content to the message element
-        messageElement.appendChild(messageContent);
-        
-        // Import delivery rider SVG (for example purposes)
-        const deliveryRiderSVG = `
-          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM7 8C8.1 8 9 8.9 9 10C9 11.1 8.1 12 7 12C5.9 12 5 11.1 5 10C5 8.9 5.9 8 7 8ZM12 8C13.1 8 14 8.9 14 10C14 11.1 13.1 12 12 12C10.9 12 10 11.1 10 10C10 8.9 10.9 8 12 8ZM17 8C18.1 8 19 8.9 19 10C19 11.1 18.1 12 17 12C15.9 12 15 11.1 15 10C15 8.9 15.9 8 17 8ZM7 14C8.1 14 9 14.9 9 16C9 17.1 8.1 18 7 18C5.9 18 5 17.1 5 16C5 14.9 5.9 14 7 14ZM17 14C18.1 14 19 14.9 19 16C19 17.1 18.1 18 17 18C15.9 18 15 17.1 15 16C15 14.9 15.9 14 17 14ZM12 14C13.1 14 14 14.9 14 16C14 17.1 13.1 18 12 18C10.9 18 10 17.1 10 16C10 14.9 10.9 14 12 14Z" fill="#000000"/>
-          </svg>
-        `;
-        
-        // Append the delivery rider SVG to the message element
-        const deliveryRiderElement = document.createElement('div');
-        deliveryRiderElement.innerHTML = deliveryRiderSVG;
+        <a href="https://twitter.com/AmaryaBot" class="bot-platform" target="_blank">
+          <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M16 3.038c-.59.26-1.22.437-1.885.517.677-.407 1.198-1.05 1.443-1.816-.634.37-1.337.64-2.085.79-.598-.64-1.45-1.04-2.396-1.04-1.812 0-3.282 1.47-3.282 3.28 0 .26.03.51.085.75-2.728-.13-5.147-1.44-6.766-3.42C.83 2.58.67 3.14.67 3.75c0 1.14.58 2.143 1.46 2.732-.538-.017-1.045-.165-1.487-.41v.04c0 1.59 1.13 2.918 2.633 3.22-.276.074-.566.114-.865.114-.21 0-.41-.02-.61-.058.42 1.304 1.63 2.253 3.07 2.28-1.12.88-2.54 1.404-4.07 1
