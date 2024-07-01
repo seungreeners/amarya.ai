@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Amarya &ndash; Your Al cooking tutor.</title>
+  <title>Amarya &ndash; Your food cooking tutor.</title>
   <link rel="shortcut-icon" href="./images/amarya.png">
   <link rel="icon" href="./images/amarya.png">
   <link rel="stylesheet" href="./dist/css/style.css">
@@ -56,6 +56,25 @@
         opacity: 1;
       }
     }
+    .input-container {
+      display: flex;
+      margin-top: 10px;
+    }
+    .input-container input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .input-container button {
+      padding: 10px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body class="app">
@@ -73,7 +92,7 @@
   
   <main class="site-hero text-center">
     <section class="info-section left">
-      <h1>Meet Amarya. Your AI cooking tutor.</h1>
+      <h1>Meet Amarya. Your food AI cooking tutor.</h1>
       <p class="description">Amarya is a cross-platform digital assistant that helps you get started with cooking.</p>
 
       <section class="bot-platforms">
@@ -162,6 +181,37 @@
       getRecipe('Arrabiata').then(meal => {
         const recipeMessage = `Recipe for ${meal.strMeal}:\n\n${meal.strInstructions}`;
         generateResponse(recipeMessage);
+      });
+
+      // Setup chat input
+      const inputContainer = document.createElement('div');
+      inputContainer.classList.add('input-container');
+      const inputField = document.createElement('input');
+      inputField.type = 'text';
+      inputField.placeholder = 'Type your message...';
+      const sendButton = document.createElement('button');
+      sendButton.textContent = 'Send';
+      inputContainer.appendChild(inputField);
+      inputContainer.appendChild(sendButton);
+      document.querySelector('.chat-container').appendChild(inputContainer);
+
+      // Handle send button click
+      sendButton.addEventListener('click', () => {
+        const userMessage = inputField.value;
+        if (userMessage) {
+          generateResponse(userMessage);
+          inputField.value = '';
+          
+          // Fetch and display recipe details based on user input
+          getRecipe(userMessage).then(meal => {
+            if (meal) {
+              const recipeMessage = `Recipe for ${meal.strMeal}:\n\n${meal.strInstructions}`;
+              generateResponse(recipeMessage);
+            } else {
+              generateResponse('Sorry, I could not find that recipe.');
+            }
+          });
+        }
       });
     });
   </script>
